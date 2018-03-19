@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<d:MvxContentPage x:TypeArguments="viewModels:ContactsViewModel"
+                  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:local="clr-namespace:PhoneDirectory.Core.Pages"
+                  x:Class="PhoneDirectory.Core.Pages.ContactsPage"
+                  xmlns:viewModels="clr-namespace:PhoneDirectory.Core.ViewModels;assembly=PhoneDirectory.Core"
+                  xmlns:d="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                  x:Name="ContactsPage"
+                  Title="{Binding Title}">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Text="+"/>
+    </ContentPage.ToolbarItems>
+    
+	<ContentPage.Content>
+        <ListView CachingStrategy="RecycleElementAndDataTemplate"
+                  ItemsSource="{Binding Contacts}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+                            <Frame Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                                   HeightRequest="40"
+                                   WidthRequest="40"
+                                   CornerRadius="20"
+                                   Padding="0"
+                                   IsClippedToBounds="true">
+                                <d:MvxImageView Source="contact.png"
+                                                ImageUri="{Binding Image}">    
+                                </d:MvxImageView>
+                            </Frame>
+                            <StackLayout Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
+                                         Orientation="Horizontal"
+                                         VerticalOptions="Center"
+                                         Margin="15,0,0,0">
+                                <Label Text="{Binding FirstName}"/>
+                                <Label Text="{Binding LastName}"/>
+                            </StackLayout>
+                            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
+                                   FontAttributes="Italic"
+                                   Margin="15,0,0,0"
+                                   Text="{Binding PrimaryPhone}"/>
+                            <Image Grid.Row="0" Grid.Column="4" Grid.RowSpan="2"
+                                   HeightRequest="40"
+                                   WidthRequest="40"
+                                   Source="phone.png">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DataContext.OnPhoneClick, Source={x:Reference ContactsPage}}" CommandParameter="{Binding .}" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+	</ContentPage.Content>
+    
+</d:MvxContentPage>
