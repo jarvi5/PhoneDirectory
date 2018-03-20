@@ -1,15 +1,17 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MvvmCross.Core.Navigation;
 using MvvmCross.Core.ViewModels;
-using PhoneDirectory.Models;
-using PhoneDirectory.Services;
+using PhoneDirectory.Core.Models;
+using PhoneDirectory.Core.Services;
 using Xamarin.Forms;
 
 namespace PhoneDirectory.Core.ViewModels
 {
-    public class ContactsViewModel : MvxViewModel
+    public class ContactsListViewModel : MvxViewModel
     {
+
+        private readonly IMvxNavigationService _navigationService;
         private FirebaseContactsService _firebaseContactsService;
 
         private List<Contact> _contacts;
@@ -40,9 +42,16 @@ namespace PhoneDirectory.Core.ViewModels
             }
         }
 
-        public ContactsViewModel()
+        public async Task ShowContactDetail(Contact contact)
+        {
+            await _navigationService.Navigate<ContactViewModel, Contact>(contact);
+        }
+
+        public ContactsListViewModel(IMvxNavigationService navigationService)
         {
             _firebaseContactsService = new FirebaseContactsService();
+            Title = "Contacts List";
+            _navigationService = navigationService;
         }
 
         public override Task Initialize()
@@ -53,7 +62,6 @@ namespace PhoneDirectory.Core.ViewModels
 		public async override void ViewAppearing()
 		{
             Contacts = await _firebaseContactsService.GetContacts();
-            Title = "Contacts";
             base.ViewAppearing();
 		}
 

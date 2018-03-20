@@ -12,7 +12,7 @@ namespace PhoneDirectory.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            RegisterNavigationServiceAppStart<ViewModels.ContactsViewModel>();
+            RegisterNavigationServiceAppStart<ViewModels.ContactsListViewModel>();
         }
     }
 }

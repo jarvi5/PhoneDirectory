@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<d:MvxContentPage x:TypeArguments="viewModels:ContactViewModel"
+                  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:local="clr-namespace:PhoneDirectory.Core.Pages"
+                  xmlns:r="clr-namespace:PhoneDirectory.Core.CustomRenderers"
+                  x:Class="PhoneDirectory.Core.Pages.ContactPage"
+                  xmlns:viewModels="clr-namespace:PhoneDirectory.Core.ViewModels;assembly=PhoneDirectory.Core"
+                  xmlns:d="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                  x:Name="ContactPage"
+                  Title="{Binding Title}">
+    
+	<ContentPage.Content>
+        <ScrollView Padding="15">
+           <StackLayout>
+                <d:MvxImageView HorizontalOptions="Center"
+                                HeightRequest="128"
+                                Source="contact.png"
+                                ImageUri="{Binding Image}"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontAttributes="Bold" Text="First Name:"/>
+                    <Label Text="{Binding Contact.FirstName}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontAttributes="Bold" Text="Last Name:"/>
+                    <Label Text="{Binding Contact.LastName}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontAttributes="Bold" Text="Primary Phone:"/>
+                    <Label Text="{Binding Contact.PrimaryPhone}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontAttributes="Bold" Text="Secundary Phone:"/>
+                    <Label Text="{Binding Contact.SecundaryPhone}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontAttributes="Bold" Text="Address:"/>
+                    <Label Text="{Binding Contact.Address}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label FontAttributes="Bold" Text="Birthdate:"/>
+                    <Label Text="{Binding Contact.Birthdate}"/>
+                </StackLayout>
+                <r:RoundedButton BackgroundColor="Teal"
+                                 TextColor="White"
+                                 Text="Edit"/>
+           </StackLayout> 
+        </ScrollView>
+	</ContentPage.Content>
+    
+</d:MvxContentPage>

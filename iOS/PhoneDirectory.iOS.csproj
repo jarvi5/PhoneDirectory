@@ -153,6 +153,7 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Dialer\" />
+    <Folder Include="CustomRenderers\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -172,6 +173,7 @@
     <Compile Include="Bootstrap\DownloadCachePluginBootstrap.cs" />
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
     <Compile Include="PhoneDialer.cs" />
+    <Compile Include="CustomRenderers\RoundedButtonRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PhoneDirectory\PhoneDirectory.Core.csproj">

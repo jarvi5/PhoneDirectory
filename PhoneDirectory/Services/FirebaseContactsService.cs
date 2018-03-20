@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using PhoneDirectory.Models;
+using PhoneDirectory.Core.Models;
 
-namespace PhoneDirectory.Services
+namespace PhoneDirectory.Core.Services
 {
     public class FirebaseContactsService : IContactsService
     {

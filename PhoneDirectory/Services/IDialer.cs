@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace PhoneDirectory.Services
+namespace PhoneDirectory.Core.Services
 {
     public interface IDialer
     {
