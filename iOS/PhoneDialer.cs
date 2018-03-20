@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Foundation;
+using Foundation; 
 using PhoneDirectory.iOS;
-using PhoneDirectory.Services;
+using PhoneDirectory.Core.Services;
 using UIKit;
 using Xamarin.Forms;
 

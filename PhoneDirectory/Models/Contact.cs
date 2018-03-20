@@ -1,5 +1,5 @@
 ﻿using System;
-namespace PhoneDirectory.Models
+namespace PhoneDirectory.Core.Models
 {
     public class Contact
     {

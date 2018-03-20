@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Android.Content;
 using Android.Telephony;
 using PhoneDirectory.Droid;
-using PhoneDirectory.Services;
+using PhoneDirectory.Core.Services;
 using Xamarin.Forms;
 using Uri = Android.Net.Uri;
 
