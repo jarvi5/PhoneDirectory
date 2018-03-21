@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<d:MvxContentPage x:TypeArguments="viewModels:ContactViewModel"
+<d:MvxContentPage x:TypeArguments="viewModels:ContactDetailViewModel"
                   xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:local="clr-namespace:PhoneDirectory.Core.Pages"
-                  xmlns:r="clr-namespace:PhoneDirectory.Core.CustomRenderers"
-                  x:Class="PhoneDirectory.Core.Pages.ContactPage"
+                  xmlns:renderers="clr-namespace:PhoneDirectory.Core.CustomRenderers"
+                  x:Class="PhoneDirectory.Core.Pages.ContactDetailPage"
                   xmlns:viewModels="clr-namespace:PhoneDirectory.Core.ViewModels;assembly=PhoneDirectory.Core"
                   xmlns:d="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-                  x:Name="ContactPage"
+                  x:Name="ContactDetailPage"
                   Title="{Binding Title}">
     
 	<ContentPage.Content>
@@ -19,7 +19,7 @@
                                 ImageUri="{Binding Image}"/>
                 <StackLayout Orientation="Horizontal">
                     <Label FontAttributes="Bold" Text="First Name:"/>
-                    <Label Text="{Binding Contact.FirstName}"/>
+                    <Label Text="{Binding Contact.FirstName, Mode=TwoWay}"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label FontAttributes="Bold" Text="Last Name:"/>
@@ -41,9 +41,10 @@
                     <Label FontAttributes="Bold" Text="Birthdate:"/>
                     <Label Text="{Binding Contact.Birthdate}"/>
                 </StackLayout>
-                <r:RoundedButton BackgroundColor="Teal"
-                                 TextColor="White"
-                                 Text="Edit"/>
+                <renderers:RoundedButton BackgroundColor="Teal"
+                                         TextColor="White"
+                                         Command="{Binding OnEditButtonClick}"
+                                         Text="Edit"/>
            </StackLayout> 
         </ScrollView>
 	</ContentPage.Content>

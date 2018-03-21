@@ -29,7 +29,8 @@
   <ItemGroup>
     <EmbeddedResource Include="App.xaml" />
     <EmbeddedResource Include="Pages\ContactsList\ContactsListPage.xaml" />
-    <EmbeddedResource Include="Pages\ContactDetail\ContactPage.xaml" />
+    <EmbeddedResource Include="Pages\ContactDetail\ContactDetailPage.xaml" />
+    <EmbeddedResource Include="Pages\CreateEditContact\CreateEditContactPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -43,9 +44,13 @@
     <Compile Include="Services\FirebaseContactsService.cs" />
     <Compile Include="Pages\ContactsList\ContactsListPage.xaml.cs" />
     <Compile Include="Services\IDialer.cs" />
-    <Compile Include="ViewModels\ContactViewModel.cs" />
-    <Compile Include="Pages\ContactDetail\ContactPage.xaml.cs" />
+    <Compile Include="ViewModels\ContactDetailViewModel.cs" />
+    <Compile Include="Pages\ContactDetail\ContactDetailPage.xaml.cs" />
     <Compile Include="CustomRenderers\RoundedButton.cs" />
+    <Compile Include="Pages\CreateEditContact\CreateEditContactPage.xaml.cs" />
+    <Compile Include="ViewModels\CreateEditContactViewModel.cs" />
+    <Compile Include="CustomBehaviors\EntryLengthValidatorBehavior.cs" />
+    <Compile Include="CustomBehaviors\EntryRequiredValidatorBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MvvmCross.Platform">
@@ -97,6 +102,8 @@
     <Folder Include="Pages\ContactsList\" />
     <Folder Include="Pages\ContactDetail\" />
     <Folder Include="CustomRenderers\" />
+    <Folder Include="Pages\CreateEditContact\" />
+    <Folder Include="CustomBehaviors\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.280555\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.280555\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />
