@@ -44,7 +44,7 @@ namespace PhoneDirectory.Core.ViewModels
 
         public async Task ShowContactDetail(Contact contact)
         {
-            await _navigationService.Navigate<ContactViewModel, Contact>(contact);
+            await _navigationService.Navigate<ContactDetailViewModel, Contact>(contact);
         }
 
         public ContactsListViewModel(IMvxNavigationService navigationService)

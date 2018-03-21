@@ -1,14 +1,40 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 namespace PhoneDirectory.Core.Models
 {
-    public class Contact
+    public class Contact : INotifyPropertyChanged
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PrimaryPhone { get; set; }
-        public string SecundaryPhone { get; set; }
-        public string Address { get; set; }
-        public DateTime Bithdate { get; set; }
-        public string Image { get; set; }
+        private string _firstName;
+        public string FirstName { get => _firstName; set => SetProperty(ref _firstName, value); }
+        private string _lastName;
+        public string LastName { get => _lastName; set => SetProperty(ref _lastName, value); }
+        private string _primaryPhone;
+        public string PrimaryPhone { get => _primaryPhone; set => SetProperty(ref _primaryPhone, value); }
+        private string _secundaryPhone;
+        public string SecundaryPhone { get => _secundaryPhone; set => SetProperty(ref _secundaryPhone, value); }
+        private string _address;
+        public string Address { get => _address; set => SetProperty(ref _address, value); }
+        private DateTime _birthdate;
+        public DateTime Birthdate { get => _birthdate; set => SetProperty(ref _birthdate, value); }
+        private string _image;
+        public string Image { get => _image; set => SetProperty(ref _image, value); }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (Object.Equals(storage, value))
+                return false;
+            storage = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

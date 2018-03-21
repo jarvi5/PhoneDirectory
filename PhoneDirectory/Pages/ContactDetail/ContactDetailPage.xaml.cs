@@ -3,9 +3,9 @@ using PhoneDirectory.Core.ViewModels;
 
 namespace PhoneDirectory.Core.Pages
 {
-    public partial class ContactPage : MvxContentPage<ContactViewModel>
+    public partial class ContactDetailPage : MvxContentPage<ContactDetailViewModel>
     {
-        public ContactPage()
+        public ContactDetailPage()
         {
             InitializeComponent();
         }
