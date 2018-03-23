@@ -12,11 +12,11 @@ namespace PhoneDirectory.Core.Pages
             InitializeComponent();
         }
 
-        async void OnContactSelected(object sender, SelectedItemChangedEventArgs e)
+        void OnContactSelected(object sender, SelectedItemChangedEventArgs e)
         {
             ContactsListViewModel contactsViewModel = (ContactsListViewModel)BindingContext.DataContext;
             Contact contact = (Contact)e.SelectedItem;
-            await contactsViewModel.ShowContactDetail(contact);
+            contactsViewModel.ShowContactDetail(contact);
         }
-    }
+	}
 }

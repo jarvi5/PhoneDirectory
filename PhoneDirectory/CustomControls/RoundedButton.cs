@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace PhoneDirectory.Core.CustomRenderers
+namespace PhoneDirectory.Core.CustomControls
 {
     public class RoundedButton : Button
     {

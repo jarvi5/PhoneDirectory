@@ -9,8 +9,6 @@ namespace PhoneDirectory.Core.Services
     {
         Task<List<Contact>> GetContacts();
 
-        Task<bool> CreateContact(Contact contact);
-
-        Task<bool> EditContact(Contact contact);
+        Task<bool> CreateEditContact(Contact contact);
     }
 }

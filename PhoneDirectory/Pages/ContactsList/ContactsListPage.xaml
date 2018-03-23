@@ -10,61 +10,75 @@
                   Title="{Binding Title}">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Order="Primary" Text="+"/>
+        <ToolbarItem Order="Primary" Text="+" Command="{Binding OnAddButtonClick}"/>
     </ContentPage.ToolbarItems>
     
 	<ContentPage.Content>
-        <ListView CachingStrategy="RecycleElementAndDataTemplate"
-                  ItemSelected="OnContactSelected"
-                  ItemsSource="{Binding Contacts}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="15,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="40" />
-                            </Grid.ColumnDefinitions>
-                            <Frame Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
-                                   HeightRequest="40"
-                                   WidthRequest="40"
-                                   CornerRadius="20"
-                                   Padding="0"
-                                   IsClippedToBounds="true">
-                                <d:MvxImageView Source="contact.png"
-                                                ImageUri="{Binding Image}"/>
-                            </Frame>
-                            <StackLayout Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
-                                         Orientation="Horizontal"
-                                         VerticalOptions="Center"
-                                         Margin="15,0,0,0">
-                                <Label Text="{Binding FirstName}"/>
-                                <Label Text="{Binding LastName}"/>
-                            </StackLayout>
-                            <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
-                                   FontAttributes="Italic"
-                                   Margin="15,0,0,0"
-                                   Text="{Binding PrimaryPhone}"/>
-                            <Image Grid.Row="0" Grid.Column="4" Grid.RowSpan="2"
-                                   HeightRequest="40"
-                                   WidthRequest="40"
-                                   Source="phone.png">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.DataContext.OnPhoneClick, Source={x:Reference ContactsPage}}" CommandParameter="{Binding .}" />
-                                </Image.GestureRecognizers>
-                            </Image>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackLayout>
+            <Label BackgroundColor="Gray" Text="No connection" IsVisible="{Binding IsDisconnected}"/>
+            <ActivityIndicator IsRunning="{Binding Busy}"
+                               IsVisible="{Binding Busy}"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="CenterAndExpand">
+                <ActivityIndicator.Color>
+                    <OnPlatform x:TypeArguments="Color"
+                                iOS="#2499CE"
+                                WinPhone="#2499CE" />
+                </ActivityIndicator.Color>
+            </ActivityIndicator>
+            <ListView CachingStrategy="RecycleElementAndDataTemplate"
+                      ItemSelected="OnContactSelected"
+                      ItemsSource="{Binding Contacts}"
+                      IsVisible="{Binding NotBusy}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="15,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+                                <Frame Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                                       HeightRequest="40"
+                                       WidthRequest="40"
+                                       CornerRadius="20"
+                                       Padding="0"
+                                       IsClippedToBounds="true">
+                                    <d:MvxImageView Source="contact.png"
+                                                    ImageUri="{Binding Image}"/>
+                                </Frame>
+                                <StackLayout Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
+                                             Orientation="Horizontal"
+                                             VerticalOptions="Center"
+                                             Margin="15,0,0,0">
+                                    <Label Text="{Binding FirstName}"/>
+                                    <Label Text="{Binding LastName}"/>
+                                </StackLayout>
+                                <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
+                                       FontAttributes="Italic"
+                                       Margin="15,0,0,0"
+                                       Text="{Binding PrimaryPhone}"/>
+                                <Image Grid.Row="0" Grid.Column="4" Grid.RowSpan="2"
+                                       HeightRequest="40"
+                                       WidthRequest="40"
+                                       Source="phone.png">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.DataContext.OnPhoneClick, Source={x:Reference ContactsPage}}" CommandParameter="{Binding .}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
 	</ContentPage.Content>
     
 </d:MvxContentPage>

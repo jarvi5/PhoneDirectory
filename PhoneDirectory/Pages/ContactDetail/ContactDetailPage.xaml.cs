@@ -1,5 +1,6 @@
 using MvvmCross.Forms.Views;
 using PhoneDirectory.Core.ViewModels;
+using Xamarin.Forms;
 
 namespace PhoneDirectory.Core.Pages
 {
@@ -7,6 +8,7 @@ namespace PhoneDirectory.Core.Pages
     {
         public ContactDetailPage()
         {
+            NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
         }
     }

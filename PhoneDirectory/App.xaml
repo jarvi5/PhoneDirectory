@@ -4,6 +4,6 @@
     x:Class="PhoneDirectory.Core.App" 
     xmlns:d="clr-namespace:MvvmCross.Forms.Platform;assembly=MvvmCross.Forms.Platform">
 	<Application.Resources>
-		<!-- Application resource dictionary -->
+		
 	</Application.Resources>
 </d:MvxFormsApplication>

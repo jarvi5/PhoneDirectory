@@ -3,7 +3,7 @@
                   xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:local="clr-namespace:PhoneDirectory.Core.Pages"
-                  xmlns:renderers="clr-namespace:PhoneDirectory.Core.CustomRenderers"
+                  xmlns:controls="clr-namespace:PhoneDirectory.Core.CustomControls"
                   xmlns:behaviors="clr-namespace:PhoneDirectory.Core.CustomBehaviors"
                   x:Class="PhoneDirectory.Core.Pages.CreateEditContactPage"
                   xmlns:viewModels="clr-namespace:PhoneDirectory.Core.ViewModels;assembly=PhoneDirectory.Core"
@@ -12,76 +12,91 @@
                   Title="{Binding Title}">
     
 	<ContentPage.Content>
-        <ScrollView Padding="15">
-           <StackLayout Spacing="10">
-                <d:MvxImageView HorizontalOptions="Center"
-                                HeightRequest="128"
-                                Source="contact.png"
-                                ImageUri="{Binding Image}"/>
-                <StackLayout>
-                    <Label FontAttributes="Bold" Text="* Name:"/>
-                    <Entry Keyboard="Text" Text="{Binding NewContact.FirstName}">
-                        <Entry.Behaviors>
-                            <behaviors:EntryLengthValidatorBehavior MaxLength="80" />
-                            <behaviors:EntryRequiredValidatorBehavior MessageLabel="FirstName"/>
-                        </Entry.Behaviors>
-                    </Entry>
-                    <Label x:Name="FirstName" Text="" FontAttributes="Italic" TextColor="Red" IsVisible="false"/>
-                </StackLayout>
-                <StackLayout>
-                    <Label FontAttributes="Bold" Text="* Last Name:"/>
-                    <Entry Keyboard="Text" Text="{Binding NewContact.LastName}">
-                        <Entry.Behaviors>
-                            <behaviors:EntryLengthValidatorBehavior MaxLength="80" />
-                            <behaviors:EntryRequiredValidatorBehavior MessageLabel="LastName"/>
-                        </Entry.Behaviors>
-                    </Entry>
-                    <Label x:Name="LastName" Text="" FontAttributes="Italic" TextColor="Red" IsVisible="false"/>
-                </StackLayout>
-                <StackLayout>
-                    <Label FontAttributes="Bold" Text="* Primary Phone:"/>
-                    <Entry Keyboard="Numeric" Text="{Binding NewContact.PrimaryPhone}" >
-                        <Entry.Behaviors>
-                            <behaviors:EntryLengthValidatorBehavior MaxLength="10" />
-                            <behaviors:EntryRequiredValidatorBehavior MessageLabel="PrimaryPhone"/>
-                        </Entry.Behaviors>
-                    </Entry>
-                    <Label x:Name="PrimaryPhone" Text="" FontAttributes="Italic" TextColor="Red" IsVisible="false"/>
-                </StackLayout>
-                <StackLayout>
-                    <Label FontAttributes="Bold" Text="Secundary Phone:"/>
-                    <Entry Keyboard="Numeric" Text="{Binding NewContact.SecundaryPhone}">
-                        <Entry.Behaviors>
-                            <behaviors:EntryLengthValidatorBehavior MaxLength="10" />
-                        </Entry.Behaviors>
-                    </Entry>
-                </StackLayout>
-                <StackLayout>
-                    <Label FontAttributes="Bold" Text="Address:"/>
-                    <Entry Keyboard="Text" Text="{Binding NewContact.Address}">
-                        <Entry.Behaviors>
-                            <behaviors:EntryLengthValidatorBehavior MaxLength="255" />
-                        </Entry.Behaviors>
-                    </Entry>
-                </StackLayout>
-                <StackLayout>
-                    <Label FontAttributes="Bold" Text="Birthdate:"/>
-                    <DatePicker Date="{Binding NewContact.Birthdate}"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <renderers:RoundedButton BackgroundColor="Teal"
-                                             TextColor="White"
-                                             HorizontalOptions="FillAndExpand"
-                                             Command="{Binding OnSaveButtonClick}"
-                                             Text="Save"/>
-                    <renderers:RoundedButton BackgroundColor="Red"
-                                             TextColor="White"
-                                             HorizontalOptions="FillAndExpand"
-                                             Command="{Binding OnCancelButtonClick}"
-                                             Text="Cancel"/>
-                </StackLayout>
-           </StackLayout> 
-        </ScrollView>
+        <StackLayout>
+           <ActivityIndicator IsRunning="{Binding Busy}"
+                               IsVisible="{Binding Busy}"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="CenterAndExpand">
+                <ActivityIndicator.Color>
+                    <OnPlatform x:TypeArguments="Color"
+                                iOS="#2499CE"
+                                WinPhone="#2499CE" />
+                </ActivityIndicator.Color>
+            </ActivityIndicator>
+            <ScrollView Padding="15" IsVisible="{Binding NotBusy}">
+               <StackLayout Spacing="10">
+                    <d:MvxImageView HorizontalOptions="Center"
+                                    HeightRequest="128"
+                                    Source="contact.png"
+                                    ImageUri="{Binding Image}"/>
+                    <StackLayout>
+                        <Label FontAttributes="Bold" Text="* Name:"/>
+                        <Entry Keyboard="Text" Text="{Binding NewContact.FirstName}">
+                            <Entry.Behaviors>
+                                <behaviors:EntryLengthValidatorBehavior MaxLength="80" />
+                                <behaviors:EntryRequiredValidatorBehavior MessageLabel="FirstName"/>
+                            </Entry.Behaviors>
+                        </Entry>
+                        <Label x:Name="FirstName" FontAttributes="Italic" TextColor="Red" IsVisible="false"
+                               Text="This field is requireed"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label FontAttributes="Bold" Text="* Last Name:"/>
+                        <Entry Keyboard="Text" Text="{Binding NewContact.LastName}">
+                            <Entry.Behaviors>
+                                <behaviors:EntryLengthValidatorBehavior MaxLength="80" />
+                                <behaviors:EntryRequiredValidatorBehavior MessageLabel="LastName"/>
+                            </Entry.Behaviors>
+                        </Entry>
+                        <Label x:Name="LastName" FontAttributes="Italic" TextColor="Red" IsVisible="false"
+                               Text="This field is requireed"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label FontAttributes="Bold" Text="* Primary Phone:"/>
+                        <Entry Keyboard="Numeric" Text="{Binding NewContact.PrimaryPhone}" >
+                            <Entry.Behaviors>
+                                <behaviors:EntryLengthValidatorBehavior MaxLength="10" />
+                                <behaviors:EntryRequiredValidatorBehavior MessageLabel="PrimaryPhone"/>
+                            </Entry.Behaviors>
+                        </Entry>
+                        <Label x:Name="PrimaryPhone" FontAttributes="Italic" TextColor="Red" IsVisible="false"
+                               Text="This field is requireed"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label FontAttributes="Bold" Text="Secundary Phone:"/>
+                        <Entry Keyboard="Numeric" Text="{Binding NewContact.SecundaryPhone}">
+                            <Entry.Behaviors>
+                                <behaviors:EntryLengthValidatorBehavior MaxLength="10" />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label FontAttributes="Bold" Text="Address:"/>
+                        <Entry Keyboard="Text" Text="{Binding NewContact.Address}">
+                            <Entry.Behaviors>
+                                <behaviors:EntryLengthValidatorBehavior MaxLength="255" />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label FontAttributes="Bold" Text="Birthdate:"/>
+                        <DatePicker Date="{Binding NewContact.Birthdate}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <controls:RoundedButton BackgroundColor="Teal"
+                                                 TextColor="White"
+                                                 HorizontalOptions="FillAndExpand"
+                                                 Command="{Binding OnSaveButtonClick}"
+                                                 Text="Save"/>
+                        <controls:RoundedButton BackgroundColor="Red"
+                                                 TextColor="White"
+                                                 HorizontalOptions="FillAndExpand"
+                                                 Command="{Binding OnCancelButtonClick}"
+                                                 Text="Cancel"/>
+                    </StackLayout>
+               </StackLayout> 
+            </ScrollView>
+        </StackLayout>
 	</ContentPage.Content>
     
 </d:MvxContentPage>

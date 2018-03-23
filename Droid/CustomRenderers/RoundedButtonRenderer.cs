@@ -1,6 +1,6 @@
 ﻿using Android.Content;
 using Android.Graphics.Drawables;
-using PhoneDirectory.Core.CustomRenderers;
+using PhoneDirectory.Core.CustomControls;
 using PhoneDirectory.Droid.CustomRenderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;

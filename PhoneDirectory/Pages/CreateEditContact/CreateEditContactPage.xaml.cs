@@ -1,5 +1,4 @@
 using MvvmCross.Forms.Views;
-using PhoneDirectory.Core.Models;
 using PhoneDirectory.Core.ViewModels;
 using Xamarin.Forms;
 
@@ -16,10 +15,7 @@ namespace PhoneDirectory.Core.Pages
         protected override bool OnBackButtonPressed()
 		{
             CreateEditContactViewModel createEditContactViewModel = (CreateEditContactViewModel)BindingContext.DataContext;
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                await createEditContactViewModel.Dismiss();
-            });
+            Device.BeginInvokeOnMainThread(createEditContactViewModel.Dismiss);
             return true;
 		}
 	}

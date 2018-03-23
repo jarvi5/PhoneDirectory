@@ -46,11 +46,12 @@
     <Compile Include="Services\IDialer.cs" />
     <Compile Include="ViewModels\ContactDetailViewModel.cs" />
     <Compile Include="Pages\ContactDetail\ContactDetailPage.xaml.cs" />
-    <Compile Include="CustomRenderers\RoundedButton.cs" />
+    <Compile Include="CustomControls\RoundedButton.cs" />
     <Compile Include="Pages\CreateEditContact\CreateEditContactPage.xaml.cs" />
     <Compile Include="ViewModels\CreateEditContactViewModel.cs" />
     <Compile Include="CustomBehaviors\EntryLengthValidatorBehavior.cs" />
     <Compile Include="CustomBehaviors\EntryRequiredValidatorBehavior.cs" />
+    <Compile Include="CustomControls\NullableDatePicker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MvvmCross.Platform">
@@ -101,7 +102,7 @@
     <Folder Include="Models\" />
     <Folder Include="Pages\ContactsList\" />
     <Folder Include="Pages\ContactDetail\" />
-    <Folder Include="CustomRenderers\" />
+    <Folder Include="CustomControls\" />
     <Folder Include="Pages\CreateEditContact\" />
     <Folder Include="CustomBehaviors\" />
   </ItemGroup>

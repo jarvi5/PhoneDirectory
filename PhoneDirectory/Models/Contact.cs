@@ -6,6 +6,8 @@ namespace PhoneDirectory.Core.Models
 {
     public class Contact : INotifyPropertyChanged
     {
+        private int _id;
+        public int Id { get => _id; set => SetProperty(ref _id, value); }
         private string _firstName;
         public string FirstName { get => _firstName; set => SetProperty(ref _firstName, value); }
         private string _lastName;
@@ -20,6 +22,19 @@ namespace PhoneDirectory.Core.Models
         public DateTime Birthdate { get => _birthdate; set => SetProperty(ref _birthdate, value); }
         private string _image;
         public string Image { get => _image; set => SetProperty(ref _image, value); }
+
+
+        public Contact()
+        {
+            Id = -1;
+            FirstName = null;
+            LastName = null;
+            PrimaryPhone = null;
+            SecundaryPhone = null;
+            Address = null;
+            Birthdate = new DateTime();
+            Image = null;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -1,4 +1,4 @@
-﻿using PhoneDirectory.Core.CustomRenderers;
+﻿using PhoneDirectory.Core.CustomControls;
 using PhoneDirectory.iOS.CustomRenderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;

@@ -3,12 +3,17 @@
                   xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:local="clr-namespace:PhoneDirectory.Core.Pages"
-                  xmlns:renderers="clr-namespace:PhoneDirectory.Core.CustomRenderers"
+                  xmlns:controls="clr-namespace:PhoneDirectory.Core.CustomControls"
                   x:Class="PhoneDirectory.Core.Pages.ContactDetailPage"
                   xmlns:viewModels="clr-namespace:PhoneDirectory.Core.ViewModels;assembly=PhoneDirectory.Core"
                   xmlns:d="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
                   x:Name="ContactDetailPage"
                   Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Text="Back"
+                     Command="{Binding OnBackButtonClick}"/>
+    </ContentPage.ToolbarItems>
     
 	<ContentPage.Content>
         <ScrollView Padding="15">
@@ -41,10 +46,10 @@
                     <Label FontAttributes="Bold" Text="Birthdate:"/>
                     <Label Text="{Binding Contact.Birthdate}"/>
                 </StackLayout>
-                <renderers:RoundedButton BackgroundColor="Teal"
-                                         TextColor="White"
-                                         Command="{Binding OnEditButtonClick}"
-                                         Text="Edit"/>
+                <controls:RoundedButton BackgroundColor="Teal"
+                                        TextColor="White"
+                                        Command="{Binding OnEditButtonClick}"
+                                        Text="Edit"/>
            </StackLayout> 
         </ScrollView>
 	</ContentPage.Content>

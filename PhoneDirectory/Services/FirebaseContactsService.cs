@@ -24,18 +24,10 @@ namespace PhoneDirectory.Core.Services
             return JsonConvert.DeserializeObject<List<Contact>>(contacts);
         }
 
-        public async Task<bool> CreateContact(Contact contact)
+        public async Task<bool> CreateEditContact(Contact contact)
         {
             int index = await GetIndex(contact);
-            string stringContact = JsonConvert.SerializeObject(contact);
-            StringContent content = new StringContent(stringContact);
-            HttpResponseMessage response = await _httpClient.PostAsync(_baseUrl + "Contacts.json", content);
-            return response.IsSuccessStatusCode;
-        }
-
-        public async Task<bool> EditContact(Contact contact)
-        {
-            int index = await GetIndex(contact);
+            contact.Id = index;
             string stringContact = JsonConvert.SerializeObject(contact);
             StringContent content = new StringContent(stringContact);
             HttpResponseMessage response = await _httpClient.PutAsync(_baseUrl + "Contacts/"+ index +".json", content);
@@ -45,7 +37,17 @@ namespace PhoneDirectory.Core.Services
         private async Task<int> GetIndex(Contact contact)
         {
             List<Contact> contacts = await GetContacts();
-            return contacts.FindIndex((obj) => obj.PrimaryPhone == contact.PrimaryPhone);
+            int index = contacts.FindIndex((obj) => obj.Id == contact.Id);
+            if (index == -1)
+            {
+                foreach (var item in contacts)
+                {
+                    if (item.Id > index) index = item.Id;
+                }
+                index++;
+            }
+                
+            return index;
         }
     }
 }

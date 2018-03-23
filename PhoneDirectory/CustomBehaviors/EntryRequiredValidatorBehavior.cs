@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace PhoneDirectory.Core.CustomBehaviors
 {
@@ -9,13 +10,23 @@ namespace PhoneDirectory.Core.CustomBehaviors
         protected override void OnAttachedTo(Entry bindable)
         {
             bindable.TextChanged += OnEntryTextChanged;
+            bindable.SizeChanged += OnSizeChanged;
             base.OnAttachedTo(bindable);
         }
 
         protected override void OnDetachingFrom(Entry bindable)
         {
             bindable.TextChanged -= OnEntryTextChanged;
+            bindable.SizeChanged -= OnSizeChanged;
             base.OnDetachingFrom(bindable);
+        }
+
+		private void OnSizeChanged(object sender, EventArgs e)
+        {
+            var entry = (Entry)sender;
+            bool isValid = !string.IsNullOrEmpty(entry.Text);
+            Label errorLabel = (entry).FindByName<Label>(MessageLabel);
+            errorLabel.IsVisible = !isValid;
         }
 
         void OnEntryTextChanged(object sender, TextChangedEventArgs args)
@@ -23,7 +34,6 @@ namespace PhoneDirectory.Core.CustomBehaviors
             var entry = (Entry)sender;
             bool isValid = !string.IsNullOrEmpty(entry.Text);
             Label errorLabel = (entry).FindByName<Label>(MessageLabel);
-            errorLabel.Text = isValid ? "" : "This field is required";
             errorLabel.IsVisible = !isValid;
         }
     }

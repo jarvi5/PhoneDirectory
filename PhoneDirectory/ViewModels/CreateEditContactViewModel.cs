@@ -12,6 +12,20 @@ namespace PhoneDirectory.Core.ViewModels
         private readonly IMvxNavigationService _navigationService;
         private FirebaseContactsService _firebaseContactsService;
 
+        private bool _busy;
+        public bool Busy
+        {
+            get => _busy;
+            set => SetProperty(ref _busy, value);
+        }
+
+        private bool _notBusy;
+        public bool NotBusy
+        {
+            get => _notBusy;
+            set => SetProperty(ref _notBusy, value);
+        }
+
         private Contact _contact;
         public Contact Contact
         {
@@ -33,15 +47,17 @@ namespace PhoneDirectory.Core.ViewModels
             set => SetProperty(ref _title, value);
         }
 
-        private IMvxAsyncCommand _onSaveButtonClick;
-        public IMvxAsyncCommand OnSaveButtonClick =>
-        _onSaveButtonClick = _onSaveButtonClick ?? new MvxAsyncCommand(SaveContact);
+        private IMvxCommand _onSaveButtonClick;
+        public IMvxCommand OnSaveButtonClick =>
+        _onSaveButtonClick = _onSaveButtonClick ?? new MvxCommand(SaveContact);
 
-        private async Task SaveContact()
+        private async void SaveContact()
         {
             if (isValidContact(NewContact))
             {
-                await _firebaseContactsService.EditContact(NewContact);
+                Busy = true;
+                NotBusy = !Busy;
+                await _firebaseContactsService.CreateEditContact(NewContact);
                 await _navigationService.Close(this, NewContact);
             }
             else
@@ -50,11 +66,11 @@ namespace PhoneDirectory.Core.ViewModels
             }
         }
 
-        private IMvxAsyncCommand _onCancelButtonClick;
-        public IMvxAsyncCommand OnCancelButtonClick =>
-        _onCancelButtonClick = _onCancelButtonClick ?? new MvxAsyncCommand(Dismiss);
+        private IMvxCommand _onCancelButtonClick;
+        public IMvxCommand OnCancelButtonClick =>
+        _onCancelButtonClick = _onCancelButtonClick ?? new MvxCommand(Dismiss);
 
-        public async Task Dismiss()
+        public async void Dismiss()
         {
             bool close = await Application.Current.MainPage.DisplayAlert("Warning", "Changes will be lost", "Accept", "Cancel");
             if (close)
@@ -65,8 +81,9 @@ namespace PhoneDirectory.Core.ViewModels
 
         public CreateEditContactViewModel(IMvxNavigationService navigationService)
         {
-            Title = "Contact Detail";
             _firebaseContactsService = new FirebaseContactsService();
+            Busy = false;
+            NotBusy = !Busy;
             _navigationService = navigationService;
         }
 
@@ -76,6 +93,7 @@ namespace PhoneDirectory.Core.ViewModels
             {
                 NewContact = new Contact
                 {
+                    Id = parameter.Id,
                     FirstName = parameter.FirstName,
                     LastName = parameter.LastName,
                     PrimaryPhone = parameter.PrimaryPhone,
@@ -86,13 +104,15 @@ namespace PhoneDirectory.Core.ViewModels
             }
             else
             {
-                NewContact = null;
+                NewContact = new Contact();
             }
             Contact = parameter;
+            Title = Contact == null ? "Create Contact" : "Edit Contact";
         }
 
         private bool isValidContact(Contact contact)
         {
+            if (contact == null) return false;
             return !string.IsNullOrEmpty(contact.FirstName)
                           && !string.IsNullOrEmpty(contact.LastName)
                           && !string.IsNullOrEmpty(contact.PrimaryPhone);

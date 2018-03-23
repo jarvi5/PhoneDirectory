@@ -12,7 +12,28 @@ namespace PhoneDirectory.Core.ViewModels
     {
 
         private readonly IMvxNavigationService _navigationService;
-        private FirebaseContactsService _firebaseContactsService;
+        private IContactsService _firebaseContactsService;
+
+        private bool _isDisconnected;
+        public bool IsDisconnected
+        {
+            get => _isDisconnected;
+            set => SetProperty(ref _isDisconnected, value);
+        }
+
+        private bool _busy;
+        public bool Busy
+        {
+            get => _busy;
+            set => SetProperty(ref _busy, value);
+        }
+
+        private bool _notBusy;
+        public bool NotBusy
+        {
+            get => _notBusy;
+            set => SetProperty(ref _notBusy, value);
+        }
 
         private List<Contact> _contacts;
         public List<Contact> Contacts
@@ -42,7 +63,16 @@ namespace PhoneDirectory.Core.ViewModels
             }
         }
 
-        public async Task ShowContactDetail(Contact contact)
+        private IMvxCommand _onAddButtonClick;
+        public IMvxCommand OnAddButtonClick =>
+        _onAddButtonClick = _onAddButtonClick ?? new MvxCommand(CreateContact);
+
+        private async void CreateContact()
+        {
+            await _navigationService.Navigate<CreateEditContactViewModel, Contact, Contact>(null);
+        }
+
+        public async void ShowContactDetail(Contact contact)
         {
             await _navigationService.Navigate<ContactDetailViewModel, Contact>(contact);
         }
@@ -51,6 +81,8 @@ namespace PhoneDirectory.Core.ViewModels
         {
             _firebaseContactsService = new FirebaseContactsService();
             Title = "Contacts List";
+            Busy = true;
+            NotBusy = !Busy;
             _navigationService = navigationService;
         }
 
@@ -62,6 +94,8 @@ namespace PhoneDirectory.Core.ViewModels
 		public async override void ViewAppearing()
 		{
             Contacts = await _firebaseContactsService.GetContacts();
+            Busy = false;
+            NotBusy = !Busy;
             base.ViewAppearing();
 		}
 
